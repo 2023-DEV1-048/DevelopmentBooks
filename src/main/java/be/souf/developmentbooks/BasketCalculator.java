@@ -2,10 +2,17 @@ package be.souf.developmentbooks;
 
 public class BasketCalculator {
 
-    private static final int UNIT_PRICE = 50;
+    public static final double UNIT_PRICE = 50.0;
 
-    public int calculate(int i) {
-        return i * UNIT_PRICE;
+    public double calculate(int quantityBook1, int quantityBook2) {
+        int nbPossibleDiscount = Math.min(quantityBook1, quantityBook2);
+
+        return calculate(quantityBook2 - nbPossibleDiscount) + calculate(quantityBook1 - nbPossibleDiscount)
+                + ((calculate(nbPossibleDiscount) + calculate(nbPossibleDiscount)) * 0.9);
+    }
+
+    private double calculate(int quantityBook) {
+        return quantityBook * UNIT_PRICE;
     }
 
 }
