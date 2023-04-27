@@ -6,8 +6,8 @@ public class BasketCalculatorService {
 
     private BasketCalculator task;
 
-    public double calculate(int quantityBook) {
-        return task.calculate(quantityBook);
+    public double calculate(int... quantityEachBook) {
+        return task.calculate(quantityEachBook);
     }
 
 }

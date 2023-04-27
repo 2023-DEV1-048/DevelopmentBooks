@@ -26,36 +26,46 @@ public class BasketCalculatorServiceTest {
 
     @BeforeEach
     void init() {
-        randomPrice = random();
+        randomPrice = randomPrice();
         when(task.calculate(any())).thenReturn(randomPrice);
     }
 
     @Test
     void calculate_with_1_distinct_book() {
-        assertThat(tested.calculate((int) random())).isEqualTo(randomPrice);
+        assertThat(tested.calculate(randomQuantity())).isEqualTo(randomPrice);
     }
 
     @Test
     void calculate_with_2_distinct_book() {
+        assertThat(tested.calculate(randomQuantity(), randomQuantity())).isEqualTo(randomPrice);
 
     }
 
     @Test
     void calculate_with_3_distinct_book() {
+        assertThat(tested.calculate(randomQuantity(), randomQuantity(), randomQuantity())).isEqualTo(randomPrice);
 
     }
 
     @Test
     void calculate_with_4_distinct_book() {
+        assertThat(tested.calculate(randomQuantity(), randomQuantity(), randomQuantity(), randomQuantity()))
+                .isEqualTo(randomPrice);
 
     }
 
     @Test
     void calculate_with_5_distinct_book() {
+        assertThat(tested.calculate(randomQuantity(), randomQuantity(), randomQuantity(), randomQuantity()))
+                .isEqualTo(randomPrice);
 
     }
 
-    private double random() {
+    private int randomQuantity() {
+        return (int) (Math.random() * 1000);
+    }
+
+    private double randomPrice() {
         return Math.random() * 1000;
     }
 
