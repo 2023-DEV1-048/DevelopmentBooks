@@ -36,38 +36,37 @@ class BasketCalculatorTest {
     @Nested
     class OnlyOneDiscountCanBeDone {
         @Nested
-        class DiscountOf10PerCent {
-
+        class DiscountOf5PerCent {
             @ParameterizedTest
             @CsvSource({
-                    "1,1,90",
-                    "2,1,140",
-                    "2,2,180",
-                    "3,1,190",
-                    "3,2,230",
-                    "3,3,270",
-                    "4,1,240",
-                    "4,2,280",
-                    "4,3,320",
-                    "4,4,360",
-                    "5,1,290",
-                    "5,2,330",
-                    "5,3,370",
-                    "5,4,410",
-                    "5,5,450",
-                    "6,1,340",
-                    "6,2,380",
-                    "6,3,420",
-                    "6,4,460",
-                    "6,5,500",
-                    "6,6,540",
+                    "1,1,95",
+                    "2,1,145",
+                    "2,2,190",
+                    "3,1,195",
+                    "3,2,240",
+                    "3,3,285",
+                    "4,1,245",
+                    "4,2,290",
+                    "4,3,335",
+                    "4,4,380",
+                    "5,1,295",
+                    "5,2,340",
+                    "5,3,385",
+                    "5,4,430",
+                    "5,5,475",
+                    "6,1,345",
+                    "6,2,390",
+                    "6,3,435",
+                    "6,4,480",
+                    "6,5,525",
+                    "6,6,570",
             })
             void n_book_of_book1_and_m_book_of_book2(int quantityBook1, int quantityBook2, double expectedResult) {
                 assertThat(tested.calculate(quantityBook1, quantityBook2)).isEqualTo(expectedResult);
                 assertThat(tested.calculate(quantityBook2, quantityBook1)).isEqualTo(expectedResult);
             }
-
         }
+
     }
 
 }

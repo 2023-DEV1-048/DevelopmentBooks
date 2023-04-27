@@ -8,7 +8,7 @@ public class BasketCalculator {
         int nbPossibleDiscount = Math.min(quantityBook1, quantityBook2);
 
         return calculate(quantityBook2 - nbPossibleDiscount) + calculate(quantityBook1 - nbPossibleDiscount)
-                + ((calculate(nbPossibleDiscount) + calculate(nbPossibleDiscount)) * 0.9);
+                + ((calculate(nbPossibleDiscount) + calculate(nbPossibleDiscount)) * 0.95);
     }
 
     private double calculate(int quantityBook) {
