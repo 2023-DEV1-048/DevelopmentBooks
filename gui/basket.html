@@ -1,0 +1,90 @@
+@@ -0,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Development Books</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th, td {
+        padding: 10px;
+        border: 1px solid black;
+      }
+      th {
+        background-color: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <form onsubmit="event.preventDefault(); sendData();">
+      <table>
+        <tr>
+          <th>Book</th>
+          <th>Author</th>
+          <th>Price</th>
+          <th>Quantity</th>
+        </tr>
+        <tr>
+          <td>Clean Code</td>
+          <td>Robert Martin</td>
+          <td>50 euros</td>
+          <td><input type="number" class="article" id="article1" min="0" value="0"></td>
+        </tr>
+        <tr>
+          <td>The Clean Coder</td>
+          <td>Robert Martin</td>
+          <td>50 euros</td>
+          <td><input type="number" class="article" id="article2" min="0" value="0"></td>
+        </tr>
+        <tr>
+          <td>Clean Architecture</td>
+          <td>Robert Martin</td>
+          <td>50 euros</td>
+          <td><input type="number" class="article" id="article3" min="0" value="0"></td>
+        </tr>
+        <tr>
+          <td>Test Driven Development by Example</td>
+          <td>Kent Beck</td>
+          <td>50 euros</td>
+          <td><input type="number" class="article" id="article4" min="0" value="0"></td>
+        </tr>
+        <tr>
+          <td>Working Effectively With Legacy Code</td>
+          <td>Michael C. Feathers</td>
+          <td>50 euros</td>
+          <td><input type="number" class="article" id="article5" min="0" value="0"></td>
+        </tr>
+      </table>
+      <input type="submit" value="Envoyer">
+    </form>
+
+    <script>
+      function sendData() {
+        const articles = document.getElementsByClassName("article");
+        const quantities = Array.from(articles).map(article => article.value).join(",");
+
+        const url = `http://localhost:8080/calculate?quantity=${quantities}`;
+
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            const total = data;
+            const popup = document.createElement("div");
+            popup.textContent = `Le total de votre commande est ${total} euros.`;
+            popup.style.position = "fixed";
+            popup.style.top = "50%";
+            popup.style.left = "50%";
+            popup.style.transform = "translate(-50%, -50%)";
+            popup.style.backgroundColor = "#fff";
+            popup.style.border = "1px solid #000";
+            popup.style.padding = "20px";
+            popup.style.boxShadow = "0 0 10px rgba(0,0,0,.5)";
+            document.body.appendChild(popup);
+          })
+          .catch(error => console.error(error));
+      }
+    </script>
+  </body>
+</html>
