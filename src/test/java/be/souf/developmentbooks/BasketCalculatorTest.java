@@ -26,9 +26,9 @@ class BasketCalculatorTest {
                     "6,300"
             })
             void n_book(int quantity, double expectedResult) {
-                assertThat(tested.calculate(quantity, 0, 0)).isEqualTo(expectedResult);
-                assertThat(tested.calculate(0, quantity, 0)).isEqualTo(expectedResult);
-                assertThat(tested.calculate(0, 0, quantity)).isEqualTo(expectedResult);
+                assertThat(tested.calculate(quantity)).isEqualTo(expectedResult);
+                assertThat(tested.calculate(quantity)).isEqualTo(expectedResult);
+                assertThat(tested.calculate(quantity)).isEqualTo(expectedResult);
 
             }
 
@@ -64,13 +64,8 @@ class BasketCalculatorTest {
                     "6,6,570"
             })
             void n_book_of_book1_and_m_book_of_book2(int quantityBook1, int quantityBook2, double expectedResult) {
-                assertThat(tested.calculate(quantityBook1, quantityBook2, 0)).isEqualTo(expectedResult);
-                assertThat(tested.calculate(quantityBook1, 0, quantityBook2)).isEqualTo(expectedResult);
-                assertThat(tested.calculate(0, quantityBook1, quantityBook2)).isEqualTo(expectedResult);
-
-                assertThat(tested.calculate(quantityBook2, quantityBook1, 0)).isEqualTo(expectedResult);
-                assertThat(tested.calculate(quantityBook2, 0, quantityBook1)).isEqualTo(expectedResult);
-                assertThat(tested.calculate(0, quantityBook2, quantityBook1)).isEqualTo(expectedResult);
+                assertThat(tested.calculate(quantityBook1, quantityBook2)).isEqualTo(expectedResult);
+                assertThat(tested.calculate(quantityBook2, quantityBook1)).isEqualTo(expectedResult);
 
             }
         }
@@ -140,8 +135,13 @@ class BasketCalculatorTest {
                     double expectedResult) {
                 assertThat(tested.calculate(quantityBook1, quantityBook2, quantityBook3)).isEqualTo(expectedResult);
                 assertThat(tested.calculate(quantityBook2, quantityBook1, quantityBook3)).isEqualTo(expectedResult);
+                assertThat(tested.calculate(quantityBook2, quantityBook3, quantityBook1)).isEqualTo(expectedResult);
+                assertThat(tested.calculate(quantityBook1, quantityBook3, quantityBook2)).isEqualTo(expectedResult);
+                assertThat(tested.calculate(quantityBook3, quantityBook1, quantityBook2)).isEqualTo(expectedResult);
+                assertThat(tested.calculate(quantityBook3, quantityBook2, quantityBook1)).isEqualTo(expectedResult);
             }
         }
+
     }
 
 }
