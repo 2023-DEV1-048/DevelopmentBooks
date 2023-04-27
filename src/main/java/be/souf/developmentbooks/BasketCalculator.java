@@ -11,9 +11,15 @@ public class BasketCalculator {
 
     private static final double[] DISCOUNTS = new double[] { 0, 1, 0.95, 0.90, 0.80, 0.75 };
 
+    /**
+     * Calculate the best price with discount.
+     *
+     * @param quantitiesByBook the quantities for each book
+     * @return the best price
+     */
     public double calculate(int... quantitiesByBook) {
 
-        // init without discount
+        // price without discount
         double bestPrice = calculate(Arrays.stream(quantitiesByBook).sum());
 
         for (int i = DISCOUNTS.length - 1; i > 1; i--) {
@@ -23,23 +29,26 @@ public class BasketCalculator {
         return bestPrice;
     }
 
-    private double calculate(int sizeMin, int... quantitiesByBook) {
-        if (sizeMin == 0) {
+    private double calculate(int minimalDifferentBooks, int... quantitiesByBook) {
+        if (minimalDifferentBooks == 0) {
             return 0;
         }
 
-        int nbDiscount = min(sizeMin, quantitiesByBook);
-        double resultWithDiscount = 0;
+        int nbDiscount = getNbDiscount(minimalDifferentBooks, quantitiesByBook);
         if (nbDiscount > 0) {
-            resultWithDiscount = calculate(nbDiscount) * sizeMin * DISCOUNTS[sizeMin];
-            removeOneBookForEach(sizeMin, nbDiscount, quantitiesByBook);
-            return resultWithDiscount + calculate(sizeMin, quantitiesByBook);
+            removeQuantityForEachBook(minimalDifferentBooks, nbDiscount, quantitiesByBook);
+            return calculate(nbDiscount) * minimalDifferentBooks * DISCOUNTS[minimalDifferentBooks]
+                    + calculate(minimalDifferentBooks, quantitiesByBook);
         }
 
-        return resultWithDiscount + calculate(sizeMin - 1, quantitiesByBook);
+        return calculate(minimalDifferentBooks - 1, quantitiesByBook);
     }
 
-    private void removeOneBookForEach(int nbToRemove, int minus, int... quantitiesByBook) {
+    private double calculate(int quantityBook) {
+        return quantityBook * UNIT_PRICE;
+    }
+
+    private void removeQuantityForEachBook(int nbToRemove, int minus, int... quantitiesByBook) {
         for (int i = 0; i < quantitiesByBook.length && nbToRemove > 0; i++) {
             int result = quantitiesByBook[i] - minus;
             if (result >= 0) {
@@ -49,11 +58,7 @@ public class BasketCalculator {
         }
     }
 
-    private double calculate(int quantityBook) {
-        return quantityBook * UNIT_PRICE;
-    }
-
-    private int min(int minSizeWithout0, int... values) {
+    private int getNbDiscount(int minimalDifferentBooks, int... values) {
 
         List<Integer> valuesInSet =
                 IntStream
@@ -62,8 +67,8 @@ public class BasketCalculator {
                         .mapToObj(Integer::valueOf)
                         .collect(Collectors.toList());
 
-        if (valuesInSet.size() >= minSizeWithout0) {
-            return valuesInSet.stream().min(Integer::compare).get();
+        if (valuesInSet.size() >= minimalDifferentBooks) {
+            return valuesInSet.stream().min(Integer::compare).orElse(0);
         }
         return 0;
     }
