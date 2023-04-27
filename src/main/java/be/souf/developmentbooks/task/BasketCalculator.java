@@ -1,4 +1,4 @@
-package be.souf.developmentbooks;
+package be.souf.developmentbooks.task;
 
 import java.util.Arrays;
 import java.util.List;
