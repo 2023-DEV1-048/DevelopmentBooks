@@ -13,7 +13,11 @@ public class BasketCalculator {
         double result = 0;
         int nbDiscount = 0;
 
-        if (quantitiesByBook.length >= 3) {
+        if (quantitiesByBook.length >= 4) {
+            nbDiscount = min(3, quantitiesByBook);
+            result += calculate(nbDiscount) * 4 * 0.80;
+        }
+        if (nbDiscount == 0 && quantitiesByBook.length >= 3) {
             nbDiscount = min(3, quantitiesByBook);
             result += calculate(nbDiscount) * 3 * 0.90;
         }
