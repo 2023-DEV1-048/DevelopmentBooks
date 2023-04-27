@@ -3,7 +3,7 @@ package be.souf.developmentbooks;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 class BasketCalculatorTest {
@@ -11,17 +11,12 @@ class BasketCalculatorTest {
     private final BasketCalculator tested = new BasketCalculator();
 
     @Nested
-    class SameCopyOfBook {
-        @Test
-        void one_copy() {
-            assertThat(tested.calculate(1)).isEqualTo(50);
-        }
+    class NoDiscount {
+        @Nested
         class SameCopyOfBook {
 
-        @Test
-        void two_copies() {
-            assertThat(tested.calculate(2)).isEqualTo(100);
-        }
+            @ParameterizedTest
+            @CsvSource({
                     "0,0",
                     "1,50",
                     "2,100",
