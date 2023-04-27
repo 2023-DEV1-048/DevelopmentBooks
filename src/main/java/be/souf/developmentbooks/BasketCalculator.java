@@ -13,8 +13,12 @@ public class BasketCalculator {
         double result = 0;
         int nbDiscount = 0;
 
-        if (quantitiesByBook.length >= 4) {
-            nbDiscount = min(3, quantitiesByBook);
+        if (quantitiesByBook.length >= 5) {
+            nbDiscount = min(5, quantitiesByBook);
+            result += calculate(nbDiscount) * 5 * 0.75;
+        }
+        if (nbDiscount == 0 && quantitiesByBook.length >= 4) {
+            nbDiscount = min(4, quantitiesByBook);
             result += calculate(nbDiscount) * 4 * 0.80;
         }
         if (nbDiscount == 0 && quantitiesByBook.length >= 3) {
@@ -34,13 +38,6 @@ public class BasketCalculator {
         }
 
         return result;
-    }
-
-    private double calculate(int quantityBook1, int quantityBook2) {
-        int nbPossibleDiscount = Math.min(quantityBook1, quantityBook2);
-
-        return calculate(quantityBook2 - nbPossibleDiscount) + calculate(quantityBook1 - nbPossibleDiscount)
-                + ((calculate(nbPossibleDiscount) + calculate(nbPossibleDiscount)) * 0.95);
     }
 
     private double calculate(int quantityBook) {
